@@ -3,6 +3,7 @@ package com.teamsparta.newsfeed.domain.article.dto
 import com.teamsparta.newsfeed.domain.article.model.Article
 import com.teamsparta.newsfeed.domain.comment.dto.CommentResponse
 import com.teamsparta.newsfeed.domain.comment.model.Comment
+import com.teamsparta.newsfeed.domain.comment.model.toResponse
 import java.sql.Timestamp
 import java.util.*
 
@@ -14,7 +15,8 @@ class RetrieveArticleResponse(
     val date: Date,
     val name: String,
     val comments: List<CommentResponse>,
-) {
+)
+{
     companion object {
         fun from(article: Article): RetrieveArticleResponse {
             return RetrieveArticleResponse(
@@ -24,7 +26,7 @@ class RetrieveArticleResponse(
                 summary = article.summary,
                 date = article.date,
                 name = article.name,
-                comments = article.comments.map {CommentResponse.from(it)}
+                comments = article.comments.map {it.toResponse()}
             )
         }
     }
