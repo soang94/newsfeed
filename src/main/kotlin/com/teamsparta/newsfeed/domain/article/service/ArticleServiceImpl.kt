@@ -2,6 +2,8 @@ package com.teamsparta.newsfeed.domain.article.service
 
 import com.teamsparta.newsfeed.domain.article.dto.ArticleResponse
 import com.teamsparta.newsfeed.domain.article.dto.CreateArticleRequest
+import com.teamsparta.newsfeed.domain.article.dto.RetrieveArticleResponse
+import com.teamsparta.newsfeed.domain.article.dto.RetrieveArticleResponse.Companion.from
 import com.teamsparta.newsfeed.domain.article.dto.UpdateArticleRequest
 import com.teamsparta.newsfeed.domain.article.model.Article
 import com.teamsparta.newsfeed.domain.article.model.toResponse
@@ -19,10 +21,10 @@ class ArticleServiceImpl(
         return articleRepository.findAll().map {it.toResponse()}
     }
 
-    override fun getArticleById(articleId: Long): ArticleResponse {
+    override fun getArticleById(articleId: Long): RetrieveArticleResponse {
         val getArticle = articleRepository.findByIdOrNull(articleId) ?: throw ArticleNotFoundException("Article", articleId)
 
-        return getArticle.toResponse()
+        return getArticle.let { RetrieveArticleResponse.from(it) }
     }
 
     @Transactional

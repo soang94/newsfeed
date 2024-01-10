@@ -1,11 +1,12 @@
 package com.teamsparta.newsfeed.domain.article.model
 
 import com.teamsparta.newsfeed.domain.article.dto.ArticleResponse
+import com.teamsparta.newsfeed.domain.comment.model.Comment
 import jakarta.persistence.*
 import java.sql.Timestamp
 
 @Entity
-@Table(name = "article")
+@Table(name = "articles")
 class Article(
     @Column(name = "title", nullable = false)
     var title: String,
@@ -23,9 +24,13 @@ class Article(
     var date: Timestamp,
 
     @Column(name = "name", nullable = false)
-    var name: String
+    var name: String,
 
+    @OneToMany(mappedBy = "article", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
+    val comments: MutableList<Comment> = mutableListOf(),
 ) {
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null
