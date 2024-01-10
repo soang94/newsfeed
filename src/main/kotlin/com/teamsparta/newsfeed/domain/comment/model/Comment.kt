@@ -8,15 +8,15 @@ import java.util.*
 @Entity
 @Table(name = "comments")
 class Comment(
-    @Column
+    @Column(name = "comment")
     var comment: String,
-    @Column
+    @Column(name = "name")
     var name: String,
-    @Column
+    @Column(name = "date")
     val date: Date,
 
     @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "articleId")
+    @JoinColumn(name = "articleId")
     val article: Article
 
 ) {

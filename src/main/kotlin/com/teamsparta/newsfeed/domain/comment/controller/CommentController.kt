@@ -26,13 +26,13 @@ class CommentController(
     @Operation(summary = "comment 생성")
     @PostMapping
     fun createComment(
-//        @PathVariable articleId: Long,
+        @PathVariable articleId: Long,
         @RequestBody createCommentRequest: CreateCommentRequest,
     ) : ResponseEntity<CommentResponse> {
 
         return ResponseEntity
             .status(HttpStatus.CREATED)
-            .body(commentService.createComment(createCommentRequest))
+            .body(commentService.createComment(createCommentRequest, articleId))
     }
 
     @Operation(summary = "comment 수정")
@@ -50,10 +50,12 @@ class CommentController(
     @DeleteMapping("/{commentId}")
     fun deleteComment(
         @RequestBody deleteCommentRequest: DeleteCommentRequest
-    ): HttpStatus {
+    ): ResponseEntity<Any> {
         commentService.deleteComment(deleteCommentRequest)
 
-        return HttpStatus.OK
+        return ResponseEntity
+            .status(HttpStatus.OK)
+            .body("comment가 삭제되었습니다.")
     }
 
 

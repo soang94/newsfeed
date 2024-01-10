@@ -17,8 +17,8 @@ class CommentServiceImpl(
     val commentRepository: CommentRepository
 ): CommentService {
 
-    override fun createComment(request: CreateCommentRequest): CommentResponse {
-        val targetArticle = articleRepository.findByIdOrNull(request.articleId)
+    override fun createComment(request: CreateCommentRequest, articleId: Long): CommentResponse {
+        val targetArticle = articleRepository.findByIdOrNull(articleId)
             ?: throw Exception("target article is not found")
 
         val comment = Comment(
