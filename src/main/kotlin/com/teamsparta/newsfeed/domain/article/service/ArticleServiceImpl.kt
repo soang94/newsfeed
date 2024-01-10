@@ -29,7 +29,7 @@ class ArticleServiceImpl(
 
     @Transactional
     override fun createArticle(request: CreateArticleRequest): ArticleResponse {
-        return articleRepository.save<Article?>(
+        return articleRepository.save<Article>(
             Article(
                 title = request.title,
                 summary = request.summary,
