@@ -8,7 +8,7 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 
 interface ArticleService {
-    fun getArticleList(pageable: Pageable): Page<ArticleResponse>
+    fun getArticleList():List<ArticleResponse>
 
     fun getArticleById(articleId: Long): RetrieveArticleResponse
 
