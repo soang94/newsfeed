@@ -9,7 +9,6 @@ import io.swagger.v3.oas.annotations.Operation
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
-import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
@@ -29,7 +28,6 @@ class CommentController(
         @PathVariable articleId: Long,
         @RequestBody createCommentRequest: CreateCommentRequest,
     ) : ResponseEntity<CommentResponse> {
-
         return ResponseEntity
             .status(HttpStatus.CREATED)
             .body(commentService.createComment(createCommentRequest, articleId))
@@ -38,6 +36,8 @@ class CommentController(
     @Operation(summary = "comment 수정")
     @PutMapping("/{commentId}")
     fun updateComment(
+        @PathVariable articleId: Long,
+        @PathVariable commentId: Long,
         @RequestBody updateCommentRequest: UpdateCommentRequest
     ) : ResponseEntity<CommentResponse> {
 
@@ -49,13 +49,16 @@ class CommentController(
     @Operation(summary = "comment 삭제")
     @DeleteMapping("/{commentId}")
     fun deleteComment(
+        @PathVariable articleId: Long,
+        @PathVariable commentId: Long,
         @RequestBody deleteCommentRequest: DeleteCommentRequest
     ): ResponseEntity<Any> {
+
         commentService.deleteComment(deleteCommentRequest)
 
         return ResponseEntity
             .status(HttpStatus.OK)
-            .body("comment가 삭제되었습니다.")
+            .body("comment 가 삭제되었습니다.")
     }
 
 
