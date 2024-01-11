@@ -1,6 +1,7 @@
 package com.teamsparta.newsfeed.domain.article.dto
 
-import java.sql.Timestamp
+import java.util.Date
+
 
 data class ArticleResponse(
     val id: Long?,
@@ -8,6 +9,6 @@ data class ArticleResponse(
     val tag: String,
     val summary: String,
     val content: String,
-    val date: Timestamp,
+    val date: Date,
     val name: String,
 )

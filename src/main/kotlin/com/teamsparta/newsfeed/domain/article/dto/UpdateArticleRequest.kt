@@ -1,12 +1,12 @@
 package com.teamsparta.newsfeed.domain.article.dto
 
-import java.sql.Timestamp
+import java.util.Date
 
 data class UpdateArticleRequest(
     val title: String,
     val tag: String,
     val summary: String,
     val content: String,
-    val date: Timestamp,
+    val date: Date,
     val name: String,
 )
