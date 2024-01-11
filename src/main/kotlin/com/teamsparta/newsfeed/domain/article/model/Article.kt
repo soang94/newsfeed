@@ -35,14 +35,6 @@ class Article(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null
 
-    fun article(request: CreateArticleRequest) = Article(
-        title = request.title,
-        summary = request.summary,
-        tag = request.tag,
-        content = request.content,
-        date = request.date,
-        name = request.name
-    )
     fun toUpdate(request: UpdateArticleRequest) {
         title = request.title
         summary = request.summary
