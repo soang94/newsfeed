@@ -10,6 +10,7 @@ import com.teamsparta.newsfeed.domain.comment.model.toResponse
 import com.teamsparta.newsfeed.domain.comment.repository.CommentRepository
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class CommentServiceImpl(
@@ -17,6 +18,7 @@ class CommentServiceImpl(
     val commentRepository: CommentRepository
 ): CommentService {
 
+    @Transactional
     override fun createComment(request: CreateCommentRequest, articleId: Long): CommentResponse {
         val targetArticle = articleRepository.findByIdOrNull(articleId)
             ?: throw Exception("target article is not found")
@@ -32,8 +34,9 @@ class CommentServiceImpl(
         return comment.toResponse()
     }
 
+    @Transactional
     override fun updateComment(request: UpdateCommentRequest): CommentResponse {
-        val foundComment = request.id?.
+        val foundComment = request.id.
         let {commentRepository.findByIdOrNull(it)} ?: throw Exception("target comment is not found")
 
         foundComment.checkAuthentication(request.name)
@@ -44,7 +47,8 @@ class CommentServiceImpl(
         return foundComment.toResponse()
     }
 
-    override fun deleteComment(request: DeleteCommentRequest): Unit {
+    @Transactional
+    override fun deleteComment(request: DeleteCommentRequest) {
         val foundComment = request.id.let {
             commentRepository.findByIdOrNull(it)
         } ?: throw Exception("target comment is not found")
