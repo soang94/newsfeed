@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 
-@RequestMapping("/article/{articleId}/comments")
+@RequestMapping("/articles/{articleId}/comments")
 @RestController
 class CommentController(
     val commentService: CommentService

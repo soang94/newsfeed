@@ -3,7 +3,6 @@ package com.teamsparta.newsfeed.domain.article.service
 import com.teamsparta.newsfeed.domain.article.dto.ArticleResponse
 import com.teamsparta.newsfeed.domain.article.dto.CreateArticleRequest
 import com.teamsparta.newsfeed.domain.article.dto.RetrieveArticleResponse
-import com.teamsparta.newsfeed.domain.article.dto.RetrieveArticleResponse.Companion.from
 import com.teamsparta.newsfeed.domain.article.dto.UpdateArticleRequest
 import com.teamsparta.newsfeed.domain.article.model.Article
 import com.teamsparta.newsfeed.domain.article.model.toResponse
@@ -43,17 +42,9 @@ class ArticleServiceImpl(
 
     @Transactional
     override fun updateArticle(articleId: Long, request: UpdateArticleRequest): ArticleResponse {
-        val updateArticle = articleRepository.findByIdOrNull(articleId) ?: throw ArticleNotFoundException("Article", articleId)
-        val (title, summary, tag, content, date, name) = request
-
-        updateArticle.title = title
-        updateArticle.summary = summary
-        updateArticle.tag = tag
-        updateArticle.content = content
-        updateArticle.date = date
-        updateArticle.name =name
-
-        return articleRepository.save(updateArticle).toResponse()
+        val article = articleRepository.findByIdOrNull(articleId) ?: throw ArticleNotFoundException("Article", articleId)
+        article.updateArticle(request)
+        return article.toResponse()
     }
 
     @Transactional

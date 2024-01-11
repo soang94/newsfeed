@@ -1,6 +1,7 @@
 package com.teamsparta.newsfeed.domain.article.model
 
 import com.teamsparta.newsfeed.domain.article.dto.ArticleResponse
+import com.teamsparta.newsfeed.domain.article.dto.UpdateArticleRequest
 import com.teamsparta.newsfeed.domain.comment.model.Comment
 import jakarta.persistence.*
 import java.util.Date
@@ -32,6 +33,15 @@ class Article(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null
+
+    fun updateArticle(request: UpdateArticleRequest) {
+        title = request.title
+        summary = request.summary
+        tag = request.tag
+        content = request.content
+        date = request.date
+        name =request.name
+    }
 }
 fun Article.toResponse(): ArticleResponse {
     return ArticleResponse(
