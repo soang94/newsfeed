@@ -65,10 +65,10 @@ class ArticleController(
     @DeleteMapping("/{articleId}")
     fun deleteArticle(
         @PathVariable articleId: Long,
-    ): ResponseEntity<Unit> {
+    ): ResponseEntity<Any> {
         articleService.deleteArticle(articleId)
         return ResponseEntity
-            .status(HttpStatus.NO_CONTENT)
-            .build()
+            .status(HttpStatus.OK)
+            .body("선택하신 기사가 삭제되었습니다.")
     }
 }
