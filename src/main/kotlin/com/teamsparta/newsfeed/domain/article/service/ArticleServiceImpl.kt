@@ -43,17 +43,9 @@ class ArticleServiceImpl(
 
     @Transactional
     override fun updateArticle(articleId: Long, request: UpdateArticleRequest): ArticleResponse {
-        val updateArticle = articleRepository.findByIdOrNull(articleId) ?: throw ArticleNotFoundException("Article", articleId)
-        val (title, summary, tag, content, date, name) = request
-
-        updateArticle.title = title
-        updateArticle.summary = summary
-        updateArticle.tag = tag
-        updateArticle.content = content
-        updateArticle.date = date
-        updateArticle.name =name
-
-        return articleRepository.save(updateArticle).toResponse()
+        val article = articleRepository.findByIdOrNull(articleId) ?: throw ArticleNotFoundException("Article", articleId)
+        article.toUpdate(request)
+        return article.toResponse()
     }
 
     @Transactional
