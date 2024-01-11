@@ -7,16 +7,18 @@ import com.teamsparta.newsfeed.domain.article.model.Article
 import com.teamsparta.newsfeed.domain.article.model.toResponse
 import com.teamsparta.newsfeed.domain.article.repository.ArticleRepository
 import com.teamsparta.newsfeed.domain.exception.ArticleNotFoundException
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
 class ArticleServiceImpl(
-    private val articleRepository: ArticleRepository
+        private val articleRepository: ArticleRepository
 ): ArticleService {
-    override fun getArticleList(): List<ArticleResponse> {
-        return articleRepository.findAll().map {it.toResponse()}
+    override fun getArticleList(pageable: Pageable): Page<ArticleResponse> {
+        return articleRepository.findAll(pageable).map {it.toResponse()}
     }
 
     override fun getArticleById(articleId: Long): ArticleResponse {
@@ -28,14 +30,14 @@ class ArticleServiceImpl(
     @Transactional
     override fun createArticle(request: CreateArticleRequest): ArticleResponse {
         return articleRepository.save<Article?>(
-            Article(
-                title = request.title,
-                summary = request.summary,
-                tag = request.tag,
-                content = request.content,
-                date = request.date,
-                name = request.name
-            )
+                Article(
+                        title = request.title,
+                        summary = request.summary,
+                        tag = request.tag,
+                        content = request.content,
+                        date = request.date,
+                        name = request.name
+                )
         ).toResponse()
     }
 
