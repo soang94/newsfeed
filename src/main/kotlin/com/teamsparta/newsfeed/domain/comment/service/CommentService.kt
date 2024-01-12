@@ -8,5 +8,5 @@ import com.teamsparta.newsfeed.domain.comment.dto.UpdateCommentRequest
 interface CommentService {
     fun createComment(request: CreateCommentRequest, articleId: Long): CommentResponse
     fun updateComment(request: UpdateCommentRequest): CommentResponse
-    fun deleteComment(request: DeleteCommentRequest): Unit
+    fun deleteComment(request: DeleteCommentRequest)
 }
