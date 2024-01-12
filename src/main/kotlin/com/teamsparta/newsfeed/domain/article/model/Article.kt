@@ -1,7 +1,6 @@
 package com.teamsparta.newsfeed.domain.article.model
 
 import com.teamsparta.newsfeed.domain.article.dto.ArticleResponse
-import com.teamsparta.newsfeed.domain.article.dto.CreateArticleRequest
 import com.teamsparta.newsfeed.domain.article.dto.UpdateArticleRequest
 import com.teamsparta.newsfeed.domain.comment.model.Comment
 import jakarta.persistence.*
