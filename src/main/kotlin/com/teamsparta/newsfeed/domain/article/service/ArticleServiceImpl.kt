@@ -8,7 +8,6 @@ import com.teamsparta.newsfeed.domain.article.model.Article
 import com.teamsparta.newsfeed.domain.article.model.toResponse
 import com.teamsparta.newsfeed.domain.article.repository.ArticleRepository
 import com.teamsparta.newsfeed.domain.exception.ArticleNotFoundException
-import com.teamsparta.newsfeed.domain.member.repository.MemberRepository
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -16,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 class ArticleServiceImpl(
         private val articleRepository: ArticleRepository,
-        private val memberRepository: MemberRepository
 ) : ArticleService {
     override fun getArticleList(): List<ArticleResponse> {
         return articleRepository.findAll().map { it.toResponse() }
