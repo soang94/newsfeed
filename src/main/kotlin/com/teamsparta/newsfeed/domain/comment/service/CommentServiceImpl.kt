@@ -14,20 +14,20 @@ import org.springframework.transaction.annotation.Transactional
 
 @Service
 class CommentServiceImpl(
-    val articleRepository: ArticleRepository,
-    val commentRepository: CommentRepository
-): CommentService {
+        val articleRepository: ArticleRepository,
+        val commentRepository: CommentRepository
+) : CommentService {
 
     @Transactional
     override fun createComment(request: CreateCommentRequest, articleId: Long): CommentResponse {
         val targetArticle = articleRepository.findByIdOrNull(articleId)
-            ?: throw Exception("target article is not found")
+                ?: throw Exception("target article is not found")
 
         val comment = Comment(
-            article = targetArticle,
-            comment = request.comment,
-            name = request.name,
-            date = request.date,
+                article = targetArticle,
+                comment = request.comment,
+                name = request.name,
+                date = request.date,
         )
         commentRepository.save(comment)
 
@@ -36,8 +36,8 @@ class CommentServiceImpl(
 
     @Transactional
     override fun updateComment(request: UpdateCommentRequest): CommentResponse {
-        val foundComment = request.id.
-        let {commentRepository.findByIdOrNull(it)} ?: throw Exception("target comment is not found")
+        val foundComment = request.id.let { commentRepository.findByIdOrNull(it) }
+                ?: throw Exception("target comment is not found")
 
         foundComment.checkAuthentication(request.name)
         foundComment.comment = request.comment

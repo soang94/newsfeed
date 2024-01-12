@@ -11,11 +11,11 @@ class SwaggerConfig {
 
     @Bean
     fun openAPI(): OpenAPI = OpenAPI()
-        .components(Components())
-        .info(
-            Info()
-                .title("Newsfeed API")
-                .description("Newsfeed API schema")
-                .version("1.0.0")
-        )
+            .components(Components())
+            .info(
+                    Info()
+                            .title("Newsfeed API")
+                            .description("Newsfeed API schema")
+                            .version("1.0.0")
+            )
 }

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 
-class MemberController (
+class MemberController(
         private val memberService: MemberService
 ) {
     @PostMapping("/signup")
@@ -21,10 +21,12 @@ class MemberController (
                 .status(HttpStatus.OK)
                 .body(memberService.signUp(signUpRequest))
     }
+
     @PostMapping("/login")
     fun signIn(@RequestBody loginRequest: LoginRequest): ResponseEntity<LoginResponse> {
         return ResponseEntity.status(HttpStatus.OK).body(memberService.login(loginRequest))
     }
+
     @GetMapping("/info/{id}")
     fun searchMyInfo(@PathVariable id: Long): ResponseEntity<MemberResponse> {
         return ResponseEntity.status(HttpStatus.OK).body(memberService.searchMyInfo(id))

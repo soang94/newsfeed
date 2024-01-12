@@ -1,9 +1,9 @@
 package com.teamsparta.newsfeed.domain.member.model
+
 import com.teamsparta.newsfeed.domain.BaseTimeEntity
+
 import com.teamsparta.newsfeed.domain.member.dto.MemberResponse
 import jakarta.persistence.*
-import org.springframework.data.annotation.CreatedDate
-import org.springframework.data.jpa.domain.support.AuditingEntityListener
 
 
 @Entity
@@ -16,11 +16,13 @@ class Member(
         @Column(name = "name")
         val name: String,
         @Column(name = "tmi")
-        val tmi : String,
+        val tmi: String,
         @Enumerated(EnumType.STRING)
         @Column(name = "role")
-        val role : MemberRole
-) : BaseTimeEntity() {
+        val role: MemberRole,
+
+
+        ) : BaseTimeEntity() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null
@@ -31,7 +33,7 @@ fun Member.toResponse(): MemberResponse {
     return MemberResponse(
             id = id!!,
             email = email,
-            name=name,
+            name = name,
             tmi = tmi,
             role = role.name
     )

@@ -1,6 +1,6 @@
 package com.teamsparta.newsfeed.domain.member.dto
 
-data class SignUpRequest (
+data class SignUpRequest(
         val email: String,
         val password: String,
         val name: String,

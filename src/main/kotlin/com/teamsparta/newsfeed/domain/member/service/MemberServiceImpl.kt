@@ -1,5 +1,6 @@
 package com.teamsparta.newsfeed.domain.member.service
 
+import com.teamsparta.newsfeed.domain.exception.InvalidCredentialException
 import com.teamsparta.newsfeed.domain.exception.MemberNotFoundException
 import com.teamsparta.newsfeed.domain.member.dto.LoginRequest
 import com.teamsparta.newsfeed.domain.member.dto.LoginResponse
@@ -9,10 +10,14 @@ import com.teamsparta.newsfeed.domain.member.model.Member
 import com.teamsparta.newsfeed.domain.member.model.MemberRole
 import com.teamsparta.newsfeed.domain.member.model.toResponse
 import com.teamsparta.newsfeed.domain.member.repository.MemberRepository
+import com.teamsparta.newsfeed.infra.security.jwt.JwtPlugin
 import org.springframework.data.repository.findByIdOrNull
+import org.springframework.security.crypto.password.PasswordEncoder
 
-class MemberServiceImpl (
-        private val memberRepository: MemberRepository
+class MemberServiceImpl(
+        private val memberRepository: MemberRepository,
+        private val passwordEncoder: PasswordEncoder,
+        private val jwtPlugin: JwtPlugin
 ) : MemberService {
     override fun signUp(request: SignUpRequest): MemberResponse {
         when {
@@ -20,12 +25,9 @@ class MemberServiceImpl (
                 throw IllegalStateException("Email is already in use")
             }
         }
-        // 기능 : DB에 정보 저장 & 일부 데이터 Response로 반환
         return memberRepository.save(
                 Member(
-                        // DB에 저장할 데이터들
                         email = request.email,
-                        // 비밀번호 암호화
                         password = request.password,
                         name = request.name,
                         tmi = request.tmi,
@@ -35,16 +37,27 @@ class MemberServiceImpl (
                             else -> throw IllegalArgumentException("Invalid role")
                         }
                 )
-        ).toResponse() //response로 반환할 데이터들
+        ).toResponse()
     }
 
     override fun login(request: LoginRequest): LoginResponse {
-        val member = memberRepository.findByEmail(request.email) ?: throw  MemberNotFoundException(null)// MemberNotFoundException
-        TODO("토큰 검증하기 / 로그인 리스폰스")
+        val member = memberRepository.findByEmail(request.email)
+                ?: throw MemberNotFoundException(null)// MemberNotFoundException
+        if (member.role.name != request.role || !passwordEncoder.matches(request.password, member.password)) {
+            throw InvalidCredentialException()
+        }
+        return LoginResponse(
+                accessToken = jwtPlugin.generateAccessToken(
+                        subject = member.id.toString(),
+                        email = member.email,
+                        role = member.role.name
+
+                )
+        )
     }
 
     override fun searchMyInfo(id: Long): MemberResponse {
-        val member = memberRepository.findByIdOrNull(id)?:throw MemberNotFoundException(id)
+        val member = memberRepository.findByIdOrNull(id) ?: throw MemberNotFoundException(id)
         return member.toResponse()
     }
 }
