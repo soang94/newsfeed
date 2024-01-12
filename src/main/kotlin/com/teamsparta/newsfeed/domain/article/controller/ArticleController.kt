@@ -7,6 +7,10 @@ import com.teamsparta.newsfeed.domain.article.dto.UpdateArticleRequest
 import com.teamsparta.newsfeed.domain.article.service.ArticleService
 import com.teamsparta.newsfeed.domain.member.model.Member
 import io.swagger.v3.oas.annotations.Operation
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
+import org.springframework.data.domain.Sort
+import org.springframework.data.web.PageableDefault
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.access.prepost.PreAuthorize
@@ -20,10 +24,13 @@ class ArticleController(
 ) {
     @Operation(summary = "article 전체 조회")
     @GetMapping
-    fun getArticleList(): ResponseEntity<List<ArticleResponse>> {
+    fun getArticleList(
+        @PageableDefault(size = 4, sort = ["name"], direction = Sort.Direction.DESC)
+        pageable: Pageable
+    ): ResponseEntity<Page<ArticleResponse>> {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(articleService.getArticleList())
+                .body(articleService.getArticleList(pageable))
     }
 
     @Operation(summary = "article 단건 조회")
