@@ -42,6 +42,7 @@ class ArticleServiceImpl(
 
     @Transactional
     override fun updateArticle(articleId: Long, request: UpdateArticleRequest): ArticleResponse {
+
         val article = articleRepository.findByIdOrNull(articleId)
                 ?: throw ArticleNotFoundException("Article", articleId)
         article.updateArticle(request)
