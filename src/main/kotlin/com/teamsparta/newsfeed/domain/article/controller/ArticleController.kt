@@ -24,6 +24,7 @@ class ArticleController(
 ) {
     @Operation(summary = "article 전체 조회")
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MEMBER')")
     fun getArticleList(
         @PageableDefault(size = 4, sort = ["name"], direction = Sort.Direction.DESC)
         pageable: Pageable
@@ -35,6 +36,7 @@ class ArticleController(
 
     @Operation(summary = "article 단건 조회")
     @GetMapping("/{articleId}")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MEMBER')")
     fun getArticle(
             @PathVariable articleId: Long
     ): ResponseEntity<RetrieveArticleResponse?> {
@@ -45,6 +47,7 @@ class ArticleController(
 
     @Operation(summary = "article 생성")
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MEMBER')")
     fun createArticle(
             @RequestBody createArticleRequest: CreateArticleRequest
     ): ResponseEntity<ArticleResponse> {
@@ -55,6 +58,7 @@ class ArticleController(
 
     @Operation(summary = "article 수정")
     @PutMapping("/{articleId}")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MEMBER')")
     fun updateArticle(
             @PathVariable articleId: Long,
             @RequestBody updateArticleRequest: UpdateArticleRequest
@@ -66,7 +70,7 @@ class ArticleController(
 
     @Operation(summary = "article 삭제")
     @DeleteMapping("/{articleId}")
-    @PreAuthorize("#member.id==principal")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MEMBER')")
     fun deleteArticle(
             @PathVariable articleId: Long,
             @AuthenticationPrincipal member: Member
