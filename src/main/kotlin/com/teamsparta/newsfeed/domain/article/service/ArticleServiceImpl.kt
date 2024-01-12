@@ -3,11 +3,12 @@ package com.teamsparta.newsfeed.domain.article.service
 import com.teamsparta.newsfeed.domain.article.dto.ArticleResponse
 import com.teamsparta.newsfeed.domain.article.dto.CreateArticleRequest
 import com.teamsparta.newsfeed.domain.article.dto.RetrieveArticleResponse
-import com.teamsparta.newsfeed.domain.article.dto.RetrieveArticleResponse.Companion.from
+//import com.teamsparta.newsfeed.domain.article.dto.RetrieveArticleResponse.Companion.from
 import com.teamsparta.newsfeed.domain.article.dto.UpdateArticleRequest
 import com.teamsparta.newsfeed.domain.article.model.Article
 import com.teamsparta.newsfeed.domain.article.model.toResponse
 import com.teamsparta.newsfeed.domain.article.repository.ArticleRepository
+import com.teamsparta.newsfeed.domain.comment.model.toResponse
 import com.teamsparta.newsfeed.domain.exception.ArticleNotFoundException
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
@@ -24,7 +25,15 @@ class ArticleServiceImpl(
     override fun getArticleById(articleId: Long): RetrieveArticleResponse {
         val getArticle = articleRepository.findByIdOrNull(articleId) ?: throw ArticleNotFoundException("Article", articleId)
 
-        return getArticle.let { RetrieveArticleResponse.from(it) }
+        return RetrieveArticleResponse(
+            id = getArticle.id,
+            title = getArticle.title,
+            summary = getArticle.summary,
+            content = getArticle.content,
+            date = getArticle.date,
+            comments = getArticle.comments.map{it.toResponse()},
+            name = getArticle.name
+        )
     }
 
     @Transactional

@@ -37,6 +37,5 @@ fun Comment.toResponse(): CommentResponse {
         comment = comment,
         name = name,
         date = date,
-//        articleId = article.id ?: throw Exception("target article is not persisted"),
     )
 }
