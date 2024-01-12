@@ -14,6 +14,7 @@ import com.teamsparta.newsfeed.infra.security.jwt.JwtPlugin
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class MemberServiceImpl(
@@ -21,6 +22,7 @@ class MemberServiceImpl(
         private val passwordEncoder: PasswordEncoder,
         private val jwtPlugin: JwtPlugin
 ) : MemberService {
+    @Transactional
     override fun signUp(request: SignUpRequest): MemberResponse {
         when {
             memberRepository.existsByEmail(request.email) -> {
@@ -41,7 +43,6 @@ class MemberServiceImpl(
                 )
         ).toResponse()
     }
-
     override fun login(request: LoginRequest): LoginResponse {
         val member = memberRepository.findByEmail(request.email)
                 ?: throw MemberNotFoundException(null)
@@ -53,11 +54,9 @@ class MemberServiceImpl(
                         subject = member.id.toString(),
                         email = member.email,
                         role = member.role.name
-
                 )
         )
     }
-
     override fun searchMyInfo(id: Long): MemberResponse {
         val member = memberRepository.findByIdOrNull(id) ?: throw MemberNotFoundException(id)
         return member.toResponse()

@@ -27,7 +27,7 @@ class MemberController(
     }
 
     @GetMapping("/info/{id}")
-    @PreAuthorize("#id==principal")
+    @PreAuthorize("#id==principal.id")
     fun searchMyInfo(@PathVariable id: Long): ResponseEntity<MemberResponse> {
         return ResponseEntity.status(HttpStatus.OK).body(memberService.searchMyInfo(id))
     }
