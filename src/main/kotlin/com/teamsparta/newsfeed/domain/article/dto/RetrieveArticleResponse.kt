@@ -10,7 +10,6 @@ class RetrieveArticleResponse(
     val title: String,
     val content: String,
     val summary: String,
-    val date: Date,
     val name: String,
     val comments: List<CommentResponse>,
 )
@@ -22,7 +21,6 @@ class RetrieveArticleResponse(
                 title = article.title,
                 content = article.content,
                 summary = article.summary,
-                date = article.date,
                 name = article.name,
                 comments = article.comments.map {it.toResponse()}
             )

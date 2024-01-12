@@ -7,6 +7,5 @@ data class UpdateArticleRequest(
     val tag: String,
     val summary: String,
     val content: String,
-    val date: Date,
     val name: String,
 )

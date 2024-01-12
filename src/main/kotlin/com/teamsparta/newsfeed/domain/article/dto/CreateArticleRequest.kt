@@ -8,6 +8,5 @@ data class CreateArticleRequest(
     val tag: String,
     val summary: String,
     val content: String,
-    val date: Date,
     val name: String,
 )

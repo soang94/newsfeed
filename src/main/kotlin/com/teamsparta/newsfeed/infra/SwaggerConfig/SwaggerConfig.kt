@@ -1,4 +1,4 @@
-package com.teamsparta.newsfeed.SwaggerConfig
+package com.teamsparta.newsfeed.infra.SwaggerConfig
 
 import io.swagger.v3.oas.models.Components
 import io.swagger.v3.oas.models.OpenAPI

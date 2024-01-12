@@ -34,7 +34,6 @@ class ArticleServiceImpl(
                 summary = request.summary,
                 tag = request.tag,
                 content = request.content,
-                date = request.date,
                 name = request.name
             )
         ).toResponse()
