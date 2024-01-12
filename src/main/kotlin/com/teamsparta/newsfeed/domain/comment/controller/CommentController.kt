@@ -60,8 +60,4 @@ class CommentController(
             .status(HttpStatus.OK)
             .body("comment 가 삭제되었습니다.")
     }
-
-
-
-
 }

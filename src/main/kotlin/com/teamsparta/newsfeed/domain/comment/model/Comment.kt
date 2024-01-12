@@ -8,11 +8,11 @@ import java.util.*
 @Entity
 @Table(name = "comments")
 class Comment(
-    @Column(name = "comment")
+    @Column(name = "comment", nullable = false)
     var comment: String,
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     var name: String,
-    @Column(name = "date")
+    @Column(name = "date", nullable = false)
     val date: Date,
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -36,7 +36,6 @@ fun Comment.toResponse(): CommentResponse {
         id = id!!,
         comment = comment,
         name = name,
-        date = date,
-//        articleId = article.id ?: throw Exception("target article is not persisted"),
+        date = date
     )
 }

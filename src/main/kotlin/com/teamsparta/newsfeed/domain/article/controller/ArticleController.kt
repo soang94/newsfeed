@@ -34,7 +34,7 @@ class ArticleController(
     @GetMapping("/{articleId}")
     fun getArticle(
         @PathVariable articleId: Long
-    ): ResponseEntity<RetrieveArticleResponse?> {
+    ): ResponseEntity<RetrieveArticleResponse> {
         return ResponseEntity
             .status(HttpStatus.OK)
             .body(articleService.getArticleById(articleId))

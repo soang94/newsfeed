@@ -42,8 +42,6 @@ class CommentServiceImpl(
         foundComment.checkAuthentication(request.name)
         foundComment.comment = request.comment
 
-        commentRepository.save(foundComment)
-
         return foundComment.toResponse()
     }
 
