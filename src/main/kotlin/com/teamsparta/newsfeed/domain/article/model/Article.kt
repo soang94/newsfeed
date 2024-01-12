@@ -28,7 +28,7 @@ class Article(
         @OneToMany(mappedBy = "article", fetch = FetchType.LAZY, cascade = [CascadeType.ALL], orphanRemoval = true)
         val comments: MutableList<Comment> = mutableListOf(),
 
-        ) : BaseTimeEntity() {
+) : BaseTimeEntity() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null

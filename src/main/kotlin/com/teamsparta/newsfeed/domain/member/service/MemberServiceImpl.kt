@@ -13,7 +13,9 @@ import com.teamsparta.newsfeed.domain.member.repository.MemberRepository
 import com.teamsparta.newsfeed.infra.security.jwt.JwtPlugin
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.security.crypto.password.PasswordEncoder
+import org.springframework.stereotype.Service
 
+@Service
 class MemberServiceImpl(
         private val memberRepository: MemberRepository,
         private val passwordEncoder: PasswordEncoder,
@@ -28,7 +30,7 @@ class MemberServiceImpl(
         return memberRepository.save(
                 Member(
                         email = request.email,
-                        password = request.password,
+                        password = passwordEncoder.encode(request.password),
                         name = request.name,
                         tmi = request.tmi,
                         role = when (request.role) {
@@ -42,7 +44,7 @@ class MemberServiceImpl(
 
     override fun login(request: LoginRequest): LoginResponse {
         val member = memberRepository.findByEmail(request.email)
-                ?: throw MemberNotFoundException(null)// MemberNotFoundException
+                ?: throw MemberNotFoundException(null)
         if (member.role.name != request.role || !passwordEncoder.matches(request.password, member.password)) {
             throw InvalidCredentialException()
         }

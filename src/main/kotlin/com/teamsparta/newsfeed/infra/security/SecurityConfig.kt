@@ -21,7 +21,7 @@ class SecurityConfig(
 
     @Bean
     fun filterChain(http: HttpSecurity): SecurityFilterChain {
-        return http
+        return http // 안쓰는 필터들
                 .httpBasic { it.disable() }
                 .formLogin { it.disable() }
                 .csrf { it.disable() }

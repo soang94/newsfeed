@@ -20,8 +20,6 @@ class Member(
         @Enumerated(EnumType.STRING)
         @Column(name = "role")
         val role: MemberRole,
-
-
         ) : BaseTimeEntity() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
