@@ -28,6 +28,7 @@ class SecurityConfig(
                 .authorizeHttpRequests {
                     it.requestMatchers(AntPathRequestMatcher("/login")).permitAll()
                     it.requestMatchers(AntPathRequestMatcher("/signup")).permitAll()
+                    it.requestMatchers(AntPathRequestMatcher("/articles")).permitAll()
                     it.requestMatchers(AntPathRequestMatcher("/swagger-ui/**")).permitAll()
                     it.requestMatchers(AntPathRequestMatcher("/v3/api-docs/**")).permitAll()
                             .anyRequest().authenticated()

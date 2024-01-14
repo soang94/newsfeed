@@ -5,7 +5,6 @@ import com.teamsparta.newsfeed.domain.article.dto.CreateArticleRequest
 import com.teamsparta.newsfeed.domain.article.dto.RetrieveArticleResponse
 import com.teamsparta.newsfeed.domain.article.dto.UpdateArticleRequest
 import com.teamsparta.newsfeed.domain.article.service.ArticleService
-import com.teamsparta.newsfeed.domain.member.model.Member
 import io.swagger.v3.oas.annotations.Operation
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -14,7 +13,6 @@ import org.springframework.data.web.PageableDefault
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.access.prepost.PreAuthorize
-import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.*
 
 @RequestMapping("/articles")
@@ -73,7 +71,6 @@ class ArticleController(
     @PreAuthorize("hasRole('ADMIN') or hasRole('MEMBER')")
     fun deleteArticle(
             @PathVariable articleId: Long,
-            @AuthenticationPrincipal member: Member
     ): ResponseEntity<Any> {
         articleService.deleteArticle(articleId)
         return ResponseEntity

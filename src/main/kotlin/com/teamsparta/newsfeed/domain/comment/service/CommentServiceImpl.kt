@@ -26,8 +26,7 @@ class CommentServiceImpl(
         val comment = Comment(
                 article = targetArticle,
                 comment = request.comment,
-                name = request.name,
-                date = request.date,
+                name = request.name
         )
         commentRepository.save(comment)
 
