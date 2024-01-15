@@ -2,7 +2,7 @@
 > * 담당자 : 오재영, 이승상, 김건우, 최윤미
 > * 개발 기간 : 2024.01.08 ~ 2024.01.15
 ## 프로젝트 소개
-Todo Application의 API를 개발하는 프로젝트입니다.
+Newsfeed Application의 API를 개발하는 프로젝트입니다.
 # How To Test
 > * role에는 ADMIN / MEMBER 중 하나를 넣어 주시기 바랍니다.
 > * /articles의 sort에는 컬럼 이름을 넣어 주시기 바랍니다.(id, article, comment, name 등...)
