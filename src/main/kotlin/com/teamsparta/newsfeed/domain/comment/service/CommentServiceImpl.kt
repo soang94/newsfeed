@@ -22,11 +22,10 @@ class CommentServiceImpl(
     override fun createComment(request: CreateCommentRequest, articleId: Long): CommentResponse {
         val targetArticle = articleRepository.findByIdOrNull(articleId)
                 ?: throw Exception("target article is not found")
-
         val comment = Comment(
                 article = targetArticle,
                 comment = request.comment,
-                name = request.name
+                name = request.name,
         )
         commentRepository.save(comment)
 
@@ -34,14 +33,12 @@ class CommentServiceImpl(
     }
 
     @Transactional
-    override fun updateComment(request: UpdateCommentRequest): CommentResponse {
-        val foundComment = request.id.let { commentRepository.findByIdOrNull(it) }
-                ?: throw Exception("target comment is not found")
+    override fun updateComment(articleId: Long, commentId: Long, request: UpdateCommentRequest): CommentResponse {
+        val foundComment = commentRepository.findByIdOrNull(commentId)
+                ?: throw CommentNotFoundException(commentId, request.name)
 
         foundComment.checkAuthentication(request.name)
         foundComment.comment = request.comment
-
-//        commentRepository.save(foundComment)
 
         return foundComment.toResponse()
     }

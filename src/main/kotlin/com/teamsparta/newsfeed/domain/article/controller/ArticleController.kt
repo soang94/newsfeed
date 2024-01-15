@@ -22,7 +22,6 @@ class ArticleController(
 ) {
     @Operation(summary = "article 전체 조회")
     @GetMapping
-    @PreAuthorize("hasRole('ADMIN') or hasRole('MEMBER')")
     fun getArticleList(
         @PageableDefault(size = 4, sort = ["name"], direction = Sort.Direction.DESC)
         pageable: Pageable
@@ -34,7 +33,6 @@ class ArticleController(
 
     @Operation(summary = "article 단건 조회")
     @GetMapping("/{articleId}")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('MEMBER')")
     fun getArticle(
             @PathVariable articleId: Long
     ): ResponseEntity<RetrieveArticleResponse?> {
