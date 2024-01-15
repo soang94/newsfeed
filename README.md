@@ -15,6 +15,7 @@ Todo Application의 API를 개발하는 프로젝트입니다.
   <img src="https://img.shields.io/badge/IntelliJ-000000?style=for-the-badge&logo=Intellijidea&logoColor=white">
   <br>
 </div>
+
 ## WireFrame
 1차
 <img src ="./img/1st WireFrame.png" >
@@ -23,9 +24,9 @@ Todo Application의 API를 개발하는 프로젝트입니다.
 
 ## API Documents
 1차
-<img src ="./img/1st WireFrame Docs.png" >
+<img src ="./img/1st API Docs.png" >
 2차
-<img src ="./img/2nd WireFrame Docs.png" >
+<img src ="./img/2nd API Docs.png" >
 ## ERD
 1차
 <img src ="./img/1st ERD.png" >
