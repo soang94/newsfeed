@@ -40,7 +40,7 @@ class CommentController(
 
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(commentService.updateComment(updateCommentRequest))
+                .body(commentService.updateComment(articleId, commentId, updateCommentRequest))
     }
 
     @Operation(summary = "comment 삭제")

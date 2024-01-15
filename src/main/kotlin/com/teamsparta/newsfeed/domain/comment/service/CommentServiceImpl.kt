@@ -8,6 +8,7 @@ import com.teamsparta.newsfeed.domain.comment.dto.UpdateCommentRequest
 import com.teamsparta.newsfeed.domain.comment.model.Comment
 import com.teamsparta.newsfeed.domain.comment.model.toResponse
 import com.teamsparta.newsfeed.domain.comment.repository.CommentRepository
+import com.teamsparta.newsfeed.domain.exception.CommentNotFoundException
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional

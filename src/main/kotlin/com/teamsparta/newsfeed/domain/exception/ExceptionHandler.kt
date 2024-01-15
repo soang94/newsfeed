@@ -15,6 +15,12 @@ class ExceptionHandler {
                 .status(HttpStatus.NOT_FOUND)
                 .body(ErrorResponse(e.message))
     }
+    @ExceptionHandler(CommentNotFoundException::class)
+    fun handleCommentNotFoundException(e: CommentNotFoundException): ResponseEntity<ErrorResponse> {
+        return ResponseEntity
+            .status(HttpStatus.NOT_FOUND)
+            .body(ErrorResponse(e.message))
+    }
 
     @ExceptionHandler(MemberNotFoundException::class)
     fun memberNotFoundException(e: MemberNotFoundException): ResponseEntity<ErrorResponse> {
