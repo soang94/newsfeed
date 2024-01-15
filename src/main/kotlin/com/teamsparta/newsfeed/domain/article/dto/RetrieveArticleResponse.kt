@@ -4,7 +4,7 @@ import com.teamsparta.newsfeed.domain.article.model.Article
 import com.teamsparta.newsfeed.domain.comment.dto.CommentResponse
 import com.teamsparta.newsfeed.domain.comment.model.toResponse
 
-class RetrieveArticleResponse(
+data class RetrieveArticleResponse(
         val id: Long?,
         val title: String,
         val content: String,
